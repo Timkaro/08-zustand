@@ -1,3 +1,5 @@
+"use client";
+
 import { createPortal } from "react-dom";
 import { useEffect, ReactNode, useRef } from "react";
 import css from "./Modal.module.css";
