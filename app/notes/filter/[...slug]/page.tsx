@@ -11,18 +11,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const category = slug[0] === "All" ? undefined : slug[0];
 
   return {
-    title: category,
-    description: `Category: ${category}`,
+    title: `${category ? ` ${category} ` : "All notes"}`,
+    description: `Filtered by ${category || "All notes"}`,
     openGraph: {
-      title: category,
-      description: `Category: ${category}`,
+      title: `${category ? ` ${category} ` : "All notes"}`,
+      description: `Filtered by ${category || "All notes"}`,
       url: "https://08-zustand-lyart.vercel.app/notes/filter/{slug}",
       images: [
         {
           url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
           width: 1200,
           height: 630,
-          alt: `Category: ${category}`,
+          alt: `${category ? ` ${category} ` : "All notes"}`,
         },
       ],
     },
