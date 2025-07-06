@@ -14,7 +14,7 @@ const initialDraft: CreateNote = {
   tag: "Todo",
 };
 
-export const NoteStore = create<Props>()(
+export const useNoteStore = create<Props>()(
   persist(
     (set) => {
       return {

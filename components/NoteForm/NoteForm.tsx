@@ -4,7 +4,7 @@ import { useId, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNote } from "@/lib/api";
 import { useRouter } from "next/navigation";
-import { NoteStore } from "@/lib/store/noteStore";
+import { useNoteStore } from "@/lib/store/noteStore";
 import { CreateNote, TagType } from "@/types/note";
 import css from "./NoteForm.module.css";
 
@@ -14,7 +14,7 @@ export default function NoteForm() {
   const queryClient = useQueryClient();
   const onClose = () => router.back();
 
-  const { draft, setDraft, clearDraft } = NoteStore();
+  const { draft, setDraft, clearDraft } = useNoteStore();
 
   const [errors, setErrors] = useState<
     Partial<Record<keyof CreateNote, string>>

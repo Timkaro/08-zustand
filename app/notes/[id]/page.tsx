@@ -16,13 +16,15 @@ export async function generateMetadata({
 }: MetadataProps): Promise<Metadata> {
   const res = await params;
   const note = await fetchNoteById(Number(res.id));
+  const pageUrl = `https://08-zustand-lyart.vercel.app/notes/${res.id}`;
+
   return {
     title: note.title,
     description: note.content,
     openGraph: {
       title: note.title,
       description: note.content,
-      url: "https://08-zustand-lyart.vercel.app/notes/{res.id}",
+      url: pageUrl,
       images: [
         {
           url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
