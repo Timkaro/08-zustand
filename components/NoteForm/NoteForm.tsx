@@ -23,7 +23,6 @@ export default function NoteForm() {
   const { mutate, isPending } = useMutation({
     mutationFn: createNote,
     onSuccess: () => {
-      console.log("Invalidating notes");
       queryClient.invalidateQueries();
       clearDraft();
       onClose();
@@ -110,7 +109,7 @@ export default function NoteForm() {
       </div>
 
       <div className={css.formGroup}>
-        <label htmlFor={draft.tag}>Tag</label>
+        <label htmlFor={`${fieldId}-tag`}>Tag</label>
         <select
           id={`${fieldId}-tag`}
           name="tag"
