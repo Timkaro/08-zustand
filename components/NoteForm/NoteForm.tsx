@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNote } from "@/lib/api";
 import { useRouter } from "next/navigation";
@@ -10,7 +10,6 @@ import css from "./NoteForm.module.css";
 
 export default function NoteForm() {
   const router = useRouter();
-  const fieldId = useId();
   const queryClient = useQueryClient();
   const onClose = () => router.back();
 
@@ -42,9 +41,7 @@ export default function NoteForm() {
     setDraft({ ...draft, [name]: value });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLElement>) => {
-    event.preventDefault();
-
+  const handleSubmit = (formData: FormData) => {
     const newErrors: typeof errors = {};
 
     if (!draft.title || draft.title.trim().length < 3) {
@@ -72,21 +69,21 @@ export default function NoteForm() {
     }
 
     const newNote: CreateNote = {
-      title: draft.title.trim(),
-      content: draft.content.trim(),
-      tag: draft.tag as TagType,
+      title: formData.get("title") as string,
+      content: formData.get("content") as string,
+      tag: formData.get("tag") as TagType,
     };
     mutate(newNote);
   };
 
   return (
-    <form className={css.form} onSubmit={handleSubmit}>
+    <form className={css.form} action={handleSubmit}>
       <div className={css.formGroup}>
-        <label htmlFor={`${fieldId}-title`}>Title</label>
+        <label htmlFor="title">Title</label>
         <input
           required
           value={draft.title}
-          id={`${fieldId}-title`}
+          id="title"
           type="text"
           name="title"
           onChange={handleChange}
@@ -96,9 +93,9 @@ export default function NoteForm() {
       </div>
 
       <div className={css.formGroup}>
-        <label htmlFor={`${fieldId}-content`}>Content</label>
+        <label htmlFor="content">Content</label>
         <textarea
-          id={`${fieldId}-content`}
+          id="content"
           name="content"
           rows={8}
           value={draft.content}
@@ -109,9 +106,9 @@ export default function NoteForm() {
       </div>
 
       <div className={css.formGroup}>
-        <label htmlFor={`${fieldId}-tag`}>Tag</label>
+        <label htmlFor="tag">Tag</label>
         <select
-          id={`${fieldId}-tag`}
+          id="tag"
           name="tag"
           value={draft.tag}
           onChange={handleChange}

@@ -9,8 +9,8 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const category = slug[0] === "All" ? undefined : slug[0];
-  const categotyKind = category || "All";
-  const pageUrl = `https://08-zustand-lyart.vercel.app/notes/filter/{slug}/${categotyKind}`;
+  const categoryKind = category || "All";
+  const pageUrl = `https://08-zustand-lyart.vercel.app/notes/filter/${categoryKind}`;
 
   return {
     title: `${category ? `${category}` : "All notes"}`,
